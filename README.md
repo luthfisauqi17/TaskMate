@@ -9,7 +9,8 @@ TaskMate is a **React Native** to-do list app built with **Expo**, allowing user
 - ✅ Mark tasks as completed  
 - ✅ Delete tasks from the list  
 - ✅ Simple and user-friendly UI with **React Native Paper**  
-- ✅ Navigation support with **React Navigation**  
+- ✅ Navigation support with **React Navigation**
+- ✅ Persistent storage (tasks are saved even after closing the app) 
 
 ## 🚀 Installation & Setup  
 
@@ -49,4 +50,8 @@ npm start
 Install missing dependencies with:
 ```bash
 npm install react-native-paper @react-navigation/native @react-navigation/stack react-native-screens react-native-safe-area-context
+```
+To install AsyncStorage, run:
+```bash
+npm install @react-native-async-storage/async-storage
 ```
