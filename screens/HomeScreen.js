@@ -1,30 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, FlatList, StyleSheet } from "react-native";
 import TaskItem from "../components/TaskItem";
 import { Button } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function HomeScreen() {
+  const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
-  const [taskText, setTaskText] = useState("");
 
-  const addTask = () => {
-    if (taskText.trim !== "") {
-      setTasks([
-        ...tasks,
-        { id: Date.now().toString(), text: taskText, completed: false },
-      ]);
-      setTaskText("");
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
+  const loadTasks = async () => {
+    try {
+      const storedTasks = await AsyncStorage.getItem("tasks");
+      if (storedTasks) {
+        setTasks(JSON.parse(storedTasks));
+      }
+    } catch (error) {
+      console.error("Failed to load tasks: ", error);
     }
   };
 
-  const toggleTask = (id) => {
-    setTasks(
-      tasks.map(task => task.id === id ? { ...task, completed: !task.completed } : task)
-    );
+  const saveTasks = async (updatedTasks) => {
+    try {
+      await AsyncStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    } catch (error) {
+      console.error("Failed to save tasks: ", error);
+    }
+  };
+
+  const addTask = () => {
+    if (task.trim() === "") return;
+    const newTasks = [
+      ...tasks,
+      { id: Date.now().toString(), text: task, completed: false },
+    ];
+    setTasks(newTasks);
+    saveTasks(newTasks);
+    setTask("");
   };
 
   const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+    const updatedTasks = tasks.filter((t) => t.id !== id);
+    setTasks(updatedTasks);
+    saveTasks(updatedTasks);
+  };
+
+  const toggleTask = (id) => {
+    const updatedTasks = tasks.map((t) =>
+      t.id === id ? { ...t, completed: !t.completed } : t
+    );
+    setTasks(updatedTasks);
+    saveTasks(updatedTasks);
   };
 
   return (
@@ -34,8 +63,8 @@ export default function HomeScreen() {
         <TextInput
           style={styles.input}
           placeholder="Add a new task..."
-          value={taskText}
-          onChangeText={setTaskText}
+          value={task}
+          onChangeText={setTask}
         />
         <Button mode="contained" onPress={addTask}>
           Add
