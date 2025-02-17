@@ -2,8 +2,6 @@
 
 TaskMate is a **React Native** to-do list app built with **Expo**, allowing users to add, check, and delete tasks easily.
 
-<img src="https://github.com/user-attachments/assets/c492493e-1f52-4b50-aff1-466774035b8b" width="300" />
-
 ## 📌 Features  
 - ✅ Add tasks to your to-do list  
 - ✅ Mark tasks as completed  
@@ -55,3 +53,18 @@ To install AsyncStorage, run:
 ```bash
 npm install @react-native-async-storage/async-storage
 ```
+
+## 📸 Screenshots
+<img src="https://github.com/user-attachments/assets/c492493e-1f52-4b50-aff1-466774035b8b" width="300" />
+
+## 🎯 Future Improvements
+- Filters (All, Completed, Incomplete)
+- Edit Tasks (Modify task text instead of just deleting)
+- Task Categories (Work, Personal, Urgent, etc.)
+- Priority Levels (Low, Medium, High)
+
+## 🤝 Contributing
+Feel free to contribute! Fork the repo and submit a pull request.
+
+## 📄 License
+This project is MIT Licensed.
